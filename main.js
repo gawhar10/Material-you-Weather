@@ -192,6 +192,7 @@ const updateWeather = function (cities) {
       //   save city name and latitude and longitude to local storage.
       const selectedCity = {
         name: `${city.name}`,
+        country: `${city.country}`,
         latitude: `${city.latitude}`,
         longitude: `${city.longitude}`,
       };
@@ -229,6 +230,19 @@ document.querySelector("#searchBtn").addEventListener("click", async (e) => {
 /* Refresh functionality event. */
 document.querySelector("#refreshBtn").addEventListener("click", () => {
   const savedCity = JSON.parse(localStorage.getItem("selectedCity"));
-  console.log(savedCity);
+  // console.log(savedCity);
   refreshWeather(savedCity);
 });
+
+// Run when webpage loads.
+const loadFromLocalStorage = () => {
+  // console.log(localStorage.getItem("selectedCity"));
+  if (localStorage.getItem("selectedCity")) {
+    const savedCity = JSON.parse(localStorage.getItem("selectedCity"));
+    console.log(savedCity);
+    updateCity(savedCity);
+    refreshWeather(savedCity);
+  }
+};
+
+loadFromLocalStorage();
