@@ -138,10 +138,8 @@ const updateCurrentWeather = async (weatherData) => {
   ).innerHTML = `${lastUpdated.time}, ${lastUpdated.day}`;
   const weatherCode = weatherData.current.weather_code;
   setWeatherString(weatherCode);
-  document.querySelector("#dayTimeHour").innerHTML = `Hours ${dayTime.hour}`;
-  document.querySelector(
-    "#dayTimeMinutes"
-  ).innerHTML = `Minutes ${dayTime.minutes}`;
+  document.querySelector("#dayTimeHour").innerHTML = `${dayTime.hour} h`;
+  document.querySelector("#dayTimeMinutes").innerHTML = `${dayTime.minutes} m`;
 };
 
 /* Update daily weather for selected city. */

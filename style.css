@@ -10,7 +10,7 @@
   --on-primary-container: #002400;
   --surface: #f8faf0;
   --on-surface: #1a1c18;
-  --secondary-fixed: #d9e7cb;
+  /* --secondary-fixed: #d9e7cb; */
   --surface-container-high: #e7e9de;
   --outline: #74796d;
 }
@@ -156,14 +156,6 @@ form button img {
   border-style: none;
   font-size: var(--font-size-normal);
   color: var(--on-surface);
-}
-
-.total_day_time {
-  flex-direction: column;
-}
-
-.total_day_time p {
-  padding: 0.2rem;
 }
 
 .current_temp_div {
