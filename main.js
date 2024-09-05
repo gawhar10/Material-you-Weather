@@ -185,7 +185,6 @@ const updateWeather = function (cities) {
     li.innerHTML = `${city.name}, ${city.admin1}, ${city.country}`;
     li.addEventListener("click", async () => {
       const weatherData = await getWeather(city.latitude, city.longitude);
-      // console.log(weatherData);
       const minTemp = weatherData.daily.temperature_2m_min;
       const maxTemp = weatherData.daily.temperature_2m_max;
       const rainSum = weatherData.daily.rain_sum;
@@ -201,6 +200,8 @@ const updateWeather = function (cities) {
       updateCurrentWeather(weatherData);
       updateDailyWeather(days, minTemp, maxTemp, rainSum);
       generatedCityList.removeChild(ul);
+      // to empty input value.
+      cityInput.value = "";
     });
     ul.appendChild(li);
     generatedCityList.appendChild(ul);
@@ -213,7 +214,6 @@ const refreshWeather = async (savedCity) => {
   const maxTemp = weatherData.daily.temperature_2m_max;
   const rainSum = weatherData.daily.rain_sum;
   const days = weatherData.daily.time;
-  // updateCity(savedCity.name);
   updateCurrentWeather(weatherData);
   updateDailyWeather(days, minTemp, maxTemp, rainSum);
 };
