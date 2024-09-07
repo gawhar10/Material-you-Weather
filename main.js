@@ -116,13 +116,13 @@ const updateCity = (city) => {
 const updateCurrentWeather = async (weatherData) => {
   document.querySelector(
     ".feels_like"
-  ).innerHTML = `${weatherData.current.apparent_temperature}`;
+  ).innerHTML = `${weatherData.current.apparent_temperature}&deg;`;
   document.querySelector(
     ".humidity"
-  ).innerHTML = `${weatherData.current.relative_humidity_2m}`;
+  ).innerHTML = `${weatherData.current.relative_humidity_2m}&percnt;`;
   document.querySelector(
     ".wind_speed"
-  ).innerHTML = `${weatherData.current.wind_speed_10m}`;
+  ).innerHTML = `${weatherData.current.wind_speed_10m}Km/H`;
   document.querySelector(
     "#currentTemp"
   ).innerHTML = `${weatherData.current.temperature_2m}&deg`;
@@ -138,8 +138,8 @@ const updateCurrentWeather = async (weatherData) => {
   ).innerHTML = `${lastUpdated.time}, ${lastUpdated.day}`;
   const weatherCode = weatherData.current.weather_code;
   setWeatherString(weatherCode);
-  document.querySelector("#dayTimeHour").innerHTML = `${dayTime.hour} h`;
-  document.querySelector("#dayTimeMinutes").innerHTML = `${dayTime.minutes} m`;
+  document.querySelector("#dayTimeHour").innerHTML = `${dayTime.hour}h`;
+  document.querySelector("#dayTimeMinutes").innerHTML = `${dayTime.minutes}m`;
 };
 
 /* Update daily weather for selected city. */
