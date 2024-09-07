@@ -10,7 +10,6 @@
   --on-primary-container: #002400;
   --surface: #f8faf0;
   --on-surface: #1a1c18;
-  /* --secondary-fixed: #d9e7cb; */
   --surface-container-high: #e7e9de;
   --outline: #74796d;
 }
@@ -38,7 +37,8 @@ body {
 main {
   max-width: 800px;
   margin: 2.4rem auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   border-radius: 1rem;
   background-color: var(--surface);
 }
@@ -87,7 +87,6 @@ form button img {
 
 .generated_city_list ul {
   list-style: none;
-  /* background-color: var(--surface-container-high); */
   border: 2px solid var(--outline);
   color: var(--on-surface);
   border-radius: 1rem;
@@ -103,7 +102,6 @@ form button img {
 
 .generated_city_list li:hover {
   background-color: var(--surface-container-high);
-  /* color: var(--surface); */
   cursor: pointer;
 }
 
@@ -198,7 +196,6 @@ form button img {
   display: flex;
   justify-content: start;
   min-width: 25%;
-  /* border: 1px solid grey; */
 }
 
 .list_heading_container {
@@ -243,12 +240,32 @@ footer {
   border-radius: 1rem;
 }
 
+/* style for welcome div */
+.welcome_div {
+  min-height: 70vh;
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+  border-radius: 1rem;
+  padding: 4rem;
+  margin: 2rem;
+}
+
+.welcome_div h1 {
+  font-size: 3rem;
+}
+
+.welcome_div p {
+  font-size: 400;
+  font-size: var(--font-size-normal);
+  margin-top: 1rem;
+}
+
 @media (max-width: 560px) {
   main {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     margin: 0;
     border-radius: unset;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background-color: unset;
   }
   .first_section {

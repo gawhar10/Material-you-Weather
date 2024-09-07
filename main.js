@@ -112,6 +112,40 @@ const updateCity = (city) => {
   ).innerHTML = `${city.name}, ${city.country}`;
 };
 
+/* Display welcome. */
+const displayWelcome = () => {
+  const welcomeDiv = document.createElement("div");
+  const h1 = document.createElement("h1");
+  const p = document.createElement("p");
+  h1.innerHTML = `How is the weather like, `;
+  p.innerHTML = `This is a weather app. Search your city and get weather data related to your city.`;
+  welcomeDiv.appendChild(h1);
+  welcomeDiv.appendChild(p);
+  welcomeDiv.classList.add("welcome_div");
+  const mainTag = document.querySelector("main");
+  const allContainers = document.querySelectorAll(".container");
+  allContainers.forEach((item) => {
+    item.style.display = "none";
+  });
+  document.querySelector(".current_temp_div").style.display = "none";
+  document.querySelector(".selected_city").style.display = "none";
+  document.querySelector(".second_section").style.display = "none";
+  mainTag.append(welcomeDiv);
+};
+
+/* Remove welcome. */
+const removeWelcome = () => {
+  // document.querySelector(".welcome_div").remove();
+  document.querySelector("main").lastChild.remove();
+  const allContainers = document.querySelectorAll(".container");
+  allContainers.forEach((item) => {
+    item.style.display = "grid";
+  });
+  document.querySelector(".selected_city").style.display = "flex";
+  document.querySelector(".current_temp_div").style.display = "flex";
+  document.querySelector(".second_section").style.display = "block";
+};
+
 /* Update current weather for selected city. */
 const updateCurrentWeather = async (weatherData) => {
   document.querySelector(
@@ -201,6 +235,10 @@ const updateWeather = function (cities) {
       generatedCityList.removeChild(ul);
       // to empty input value.
       cityInput.value = "";
+      // remove welcome div if it is there.
+      if (document.querySelector(".welcome_div")) {
+        removeWelcome();
+      }
     });
     ul.appendChild(li);
     generatedCityList.appendChild(ul);
@@ -233,14 +271,16 @@ document.querySelector("#refreshBtn").addEventListener("click", () => {
 });
 
 // Run when webpage loads.
-const loadFromLocalStorage = () => {
+const checkLocalStorage = () => {
   // console.log(localStorage.getItem("selectedCity"));
   if (localStorage.getItem("selectedCity")) {
     const savedCity = JSON.parse(localStorage.getItem("selectedCity"));
     console.log(savedCity);
     updateCity(savedCity);
     refreshWeather(savedCity);
+  } else {
+    displayWelcome();
   }
 };
 
-loadFromLocalStorage();
+checkLocalStorage();
