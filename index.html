@@ -9,7 +9,7 @@
       href="./images/weather_favicon.png"
       type="image/png"
     />
-    <script src="./main.js" async></script>
+    <script type="module" src="./main.js" async></script>
     <title>Weather</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +23,7 @@
     <main>
       <section class="first_section">
         <form>
-          <input type="text" name="city_name" id="cityInput" />
+          <input type="text" name="city_name" id="cityInput" pattern="[A-Za-z]+" />
           <button id="searchBtn">
             <img src="./images/search_386A1F.png" alt="search button" />
           </button>
