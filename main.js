@@ -159,9 +159,12 @@ const refreshWeather = async (savedCity) => {
 document.querySelector("#searchBtn").addEventListener("click", async (e) => {
   e.preventDefault();
   const cityInput = document.querySelector("#cityInput");
-  if (cityInput.value.match(/[A-Za-z]+/)) {
+  try {
     const cities = await getCities(cityInput.value);
     updateWeather(cities);
+  }
+  catch (error) {
+    console.log('Please enter valid city name.');
   }
 });
 
