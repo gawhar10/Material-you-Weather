@@ -1,19 +1,12 @@
 import { getCities, getWeather, formatISODate, formatDate, dayDuration, setWeatherString } from "./modules.js";
 
-/* Update city name on UI. */
-const updateCity = (city) => {
-  document.querySelector(
-    "#selectedCity"
-  ).innerHTML = `${city.name}, ${city.country}`;
-};
-
 /* Display welcome. */
 const displayWelcome = () => {
   const welcomeDiv = document.createElement("div");
   const h1 = document.createElement("h1");
   const p = document.createElement("p");
   h1.innerHTML = `How is the weather like, `;
-  p.innerHTML = `This is a weather app. Search your city and get weather data related to your city.`;
+  p.innerHTML = `Search your favorite city and get weather data related to it. in a most concise way`;
   welcomeDiv.appendChild(h1);
   welcomeDiv.appendChild(p);
   welcomeDiv.classList.add("welcome_div");
@@ -30,7 +23,6 @@ const displayWelcome = () => {
 
 /* Remove welcome. */
 const removeWelcome = () => {
-  // document.querySelector(".welcome_div").remove();
   document.querySelector("main").lastChild.remove();
   const allContainers = document.querySelectorAll(".container");
   allContainers.forEach((item) => {
@@ -41,8 +33,8 @@ const removeWelcome = () => {
   document.querySelector(".second_section").style.display = "block";
 };
 
-/* Update current weather for selected city. */
-const updateCurrentWeather = async (weatherData) => {
+/* Update current weather. */
+const currentWeatherView = async (weatherData) => {
   document.querySelector(
     ".feels_like"
   ).innerHTML = `${weatherData.current.apparent_temperature}&deg;`;
@@ -71,65 +63,60 @@ const updateCurrentWeather = async (weatherData) => {
   document.querySelector("#dayTimeMinutes").innerHTML = `${dayTime.minutes}m`;
 };
 
-/* Update daily weather for selected city. */
-const updateDailyWeather = (days, minTemp, maxTemp, rainSum) => {
+/* Update daily weather. */
+const dailyWeatherView = (weatherData) => {
   const listContainer = document.querySelector("#listContainer");
-  // to remove previously created ul.
+  // Remove previously created ul.
   if (listContainer.children) {
     listContainer.innerHTML = "";
   }
-
   const ul = document.createElement("ul");
-  for (let i = 0; i < minTemp.length; i++) {
-    const day = formatDate(days[i]);
-    console.log(day);
+  for (let i = 0; i < weatherData.daily.time.length; i++) {
+    const dailyTime = formatDate(weatherData.daily.time[i]);
     const li = document.createElement("li");
-    const dayP = document.createElement("p");
-    const minP = document.createElement("p");
-    const maxP = document.createElement("p");
-    const rainSumP = document.createElement("p");
-    dayP.innerHTML = day;
-    minP.innerHTML = minTemp[i];
-    maxP.innerHTML = maxTemp[i];
-    rainSumP.innerHTML = rainSum[i];
-    li.appendChild(dayP);
-    li.appendChild(minP);
-    li.appendChild(maxP);
-    li.appendChild(rainSumP);
+    const day = document.createElement("p");
+    const minTemp = document.createElement("p");
+    const maxTemp = document.createElement("p");
+    const rainSum = document.createElement("p");
+    day.innerHTML = dailyTime;
+    minTemp.innerHTML = weatherData.daily.temperature_2m_min[i];
+    maxTemp.innerHTML = weatherData.daily.temperature_2m_max[i];
+    rainSum.innerHTML = weatherData.daily.rain_sum[i];
+    li.appendChild(day);
+    li.appendChild(minTemp);
+    li.appendChild(maxTemp);
+    li.appendChild(rainSum);
     ul.appendChild(li);
     listContainer.appendChild(ul);
   }
 };
 
-/* Main function for updating weather for The selected city. */
-const updateWeather = function (cities) {
+/* Saving city name, latitude and longitude to the Localstorage. */
+const cityLocalStorage = async (city) => {
+  const selectedCity = {
+    name: `${city.name}`,
+    country: `${city.country}`,
+    latitude: `${city.latitude}`,
+    longitude: `${city.longitude}`,
+  };
+  localStorage.setItem("selectedCity", JSON.stringify(selectedCity));
+};
+
+/* Main function. */
+const main = function (cities) {
   const generatedCityList = document.querySelector("#generatedCityList");
   const ul = document.createElement("ul");
 
-  cities = cities.results;
-
-  cities.forEach((city) => {
+  cities.results.forEach((city) => {
     const li = document.createElement("li");
     li.innerHTML = `${city.name}, ${city.admin1}, ${city.country}`;
     li.addEventListener("click", async () => {
       const weatherData = await getWeather(city.latitude, city.longitude);
-      const minTemp = weatherData.daily.temperature_2m_min;
-      const maxTemp = weatherData.daily.temperature_2m_max;
-      const rainSum = weatherData.daily.rain_sum;
-      const days = weatherData.daily.time;
-      //   save city name and latitude and longitude to local storage.
-      const selectedCity = {
-        name: `${city.name}`,
-        country: `${city.country}`,
-        latitude: `${city.latitude}`,
-        longitude: `${city.longitude}`,
-      };
-      localStorage.setItem("selectedCity", JSON.stringify(selectedCity));
-      updateCity(city);
-      updateCurrentWeather(weatherData);
-      updateDailyWeather(days, minTemp, maxTemp, rainSum);
+      document.querySelector("#selectedCity").innerHTML = `${city.name}, ${city.country}`;
+      currentWeatherView(weatherData);
+      dailyWeatherView(weatherData);
+      cityLocalStorage(city);
       generatedCityList.removeChild(ul);
-      // to empty input value.
       cityInput.value = "";
       // remove welcome div if it is there.
       if (document.querySelector(".welcome_div")) {
@@ -138,21 +125,9 @@ const updateWeather = function (cities) {
     });
     ul.appendChild(li);
   });
-  // remove previous ul.
-  if (generatedCityList.hasChildNodes()) {
-    generatedCityList.innerHTML = "";
-  }
+  // Removing previously generated city list.
+  if (generatedCityList.hasChildNodes()) generatedCityList.innerHTML = "";
   generatedCityList.appendChild(ul);
-};
-
-const refreshWeather = async (savedCity) => {
-  const weatherData = await getWeather(savedCity.latitude, savedCity.longitude);
-  const minTemp = weatherData.daily.temperature_2m_min;
-  const maxTemp = weatherData.daily.temperature_2m_max;
-  const rainSum = weatherData.daily.rain_sum;
-  const days = weatherData.daily.time;
-  updateCurrentWeather(weatherData);
-  updateDailyWeather(days, minTemp, maxTemp, rainSum);
 };
 
 /* Search button event.*/
@@ -161,28 +136,30 @@ document.querySelector("#searchBtn").addEventListener("click", async (e) => {
   const cityInput = document.querySelector("#cityInput");
   try {
     const cities = await getCities(cityInput.value);
-    updateWeather(cities);
+    main(cities);
   }
   catch (error) {
     console.log('Please enter valid city name.');
   }
 });
 
-/* Refresh functionality event. */
-document.querySelector("#refreshBtn").addEventListener("click", () => {
+/* Refresh button event. */
+document.querySelector("#refreshBtn").addEventListener("click", async () => {
   const savedCity = JSON.parse(localStorage.getItem("selectedCity"));
-  // console.log(savedCity);
-  refreshWeather(savedCity);
+  const weatherData = await getWeather(savedCity.latitude, savedCity.longitude);
+  document.querySelector("#selectedCity").innerHTML = `${savedCity.name}, ${savedCity.country}`;
+  currentWeatherView(weatherData);
+  dailyWeatherView(weatherData);
 });
 
 // Run when webpage loads.
-const checkLocalStorage = () => {
-  // console.log(localStorage.getItem("selectedCity"));
+const checkLocalStorage = async () => {
   if (localStorage.getItem("selectedCity")) {
     const savedCity = JSON.parse(localStorage.getItem("selectedCity"));
-    console.log(savedCity);
-    updateCity(savedCity);
-    refreshWeather(savedCity);
+    const weatherData = await getWeather(savedCity.latitude, savedCity.longitude);
+    document.querySelector("#selectedCity").innerHTML = `${savedCity.name}, ${savedCity.country}`;
+    currentWeatherView(weatherData);
+    dailyWeatherView(weatherData);
   } else {
     displayWelcome();
   }

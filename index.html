@@ -1,104 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="shortcut icon"
-      href="./images/weather_favicon.png"
-      type="image/png"
-    />
-    <script type="module" src="./main.js" async></script>
-    <title>Weather</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <main>
-      <section class="first_section">
-        <form>
-          <input type="text" name="city_name" id="cityInput" pattern="[A-Za-z]+" />
-          <button id="searchBtn">
-            <img src="./images/search_386A1F.png" alt="search button" />
-          </button>
-        </form>
-        <div class="generated_city_list" id="generatedCityList"></div>
-        <div class="selected_city">
-          <h1 id="selectedCity">New Delhi</h1>
-        </div>
-        <div class="container">
-          <div class="block">
-            <div>
-              <p>Real feel</p>
-              <p class="feels_like">35&deg;</p>
-            </div>
-            <div>
-              <p>Humidity</p>
-              <p class="humidity">76&percnt;</p>
-            </div>
-            <div>
-              <p>Wind speed</p>
-              <p class="wind_speed">3Km/H</p>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./images/weather_favicon.png" type="image/png" />
+  <script type="module" src="./main.js" async></script>
+  <title>Weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <main>
+    <section class="first_section">
+      <form>
+        <input type="text" name="city_name" id="cityInput" />
+        <button id="searchBtn">
+          <img src="./images/search_386A1F.png" alt="search button" />
+        </button>
+      </form>
+      <div class="generated_city_list" id="generatedCityList"></div>
+      <div class="selected_city">
+        <h1 id="selectedCity">New Delhi</h1>
+      </div>
+      <div class="container">
+        <div class="block">
+          <div>
+            <p>Real feel</p>
+            <p class="feels_like">35&deg;</p>
           </div>
-          <div class="block">
-            <div>
-              <button id="refreshBtn" class="last_updated_button">
-                Last updated
-                <img src="./images/update_55624C.png" alt="" />
-              </button>
-            </div>
-            <div>
-              <p id="lastUpdated">12:15, 12 may</p>
-            </div>
+          <div>
+            <p>Humidity</p>
+            <p class="humidity">76&percnt;</p>
           </div>
-        </div>
-        <div class="current_temp_div">
-          <h1 id="currentTemp">32&deg;</h1>
-          <div class="weather_type_div">
-            <p id="weatherType">Thunderstorm</p>
+          <div>
+            <p>Wind speed</p>
+            <p class="wind_speed">3Km/H</p>
           </div>
         </div>
-        <div class="container">
-          <div class="block">
-            <div>
-              <p>Sunrise</p>
-              <p id="sunriseTime">6:10AM</p>
-            </div>
-            <div>
-              <p>Sunset</p>
-              <p id="sunsetTime">5:46PM</p>
-            </div>
+        <div class="block">
+          <div>
+            <button id="refreshBtn" class="last_updated_button">
+              Last updated
+              <img src="./images/update_55624C.png" alt="" />
+            </button>
           </div>
-          <div class="block">
-            <p>Total Day Time</p>
-            <div>
-              <p>Hours</p>
-              <p id="dayTimeHour">12</p>
-            </div>
-            <div>
-              <p>Minutes</p>
-              <p id="dayTimeMinutes">46</p>
-            </div>
+          <div>
+            <p id="lastUpdated">12:15, 12 may</p>
           </div>
         </div>
-      </section>
-      <section class="second_section">
-        <div class="list_heading_container">
-          <p>Day</p>
-          <p>Min &deg;</p>
-          <p>Max &deg;</p>
-          <p>Rain(mm)</p>
+      </div>
+      <div class="current_temp_div">
+        <h1 id="currentTemp">32&deg;</h1>
+        <div class="weather_type_div">
+          <p id="weatherType">Thunderstorm</p>
         </div>
-        <div class="list_container" id="listContainer"></div>
-        <footer>Weather data provided by openmeteo API</footer>
-      </section>
-    </main>
-  </body>
+      </div>
+      <div class="container">
+        <div class="block">
+          <div>
+            <p>Sunrise</p>
+            <p id="sunriseTime">6:10AM</p>
+          </div>
+          <div>
+            <p>Sunset</p>
+            <p id="sunsetTime">5:46PM</p>
+          </div>
+        </div>
+        <div class="block">
+          <p>Total Day Time</p>
+          <div>
+            <p>Hours</p>
+            <p id="dayTimeHour">12</p>
+          </div>
+          <div>
+            <p>Minutes</p>
+            <p id="dayTimeMinutes">46</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="second_section">
+      <div class="list_heading_container">
+        <p>Day</p>
+        <p>Min &deg;</p>
+        <p>Max &deg;</p>
+        <p>Rain(mm)</p>
+      </div>
+      <div class="list_container" id="listContainer"></div>
+      <footer>Weather data provided by openmeteo API</footer>
+    </section>
+  </main>
+</body>
+
 </html>

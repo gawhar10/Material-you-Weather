@@ -25,7 +25,6 @@ export const formatISODate = (isoDate) => {
     const date = new Date(isoDate);
     const time = `${date.getHours()}:${date.getMinutes()}`;
     const day = `${date.getDate()}/${date.getMonth() + 1}`;
-    console.log({ time: time, day: day });
     return { time: time, day: day };
 };
 
@@ -35,18 +34,18 @@ export const formatDate = (date) => {
     date = date.split("-");
     const [year, month, day] = date;
     const monthNames = [
-        "jan",
-        "feb",
-        "mar",
-        "apr",
-        "may",
-        "jun",
-        "jul",
-        "aug",
-        "sept",
-        "oct",
-        "nov",
-        "dec",
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sept",
+        "Oct",
+        "Nov",
+        "Dec",
     ];
     return `${monthNames[Number(month) - 1]}, ${day}`;
 };
@@ -54,9 +53,7 @@ export const formatDate = (date) => {
 /* Calculate day time in hours and minutes. */
 export const dayDuration = (sunrise, sunset) => {
     sunrise = sunrise.split(":");
-    console.log(sunrise);
     sunset = sunset.split(":");
-    console.log(sunset);
     const hour = Number(sunset[0]) - Number(sunrise[0]);
     const minutes = Number(sunset[1]) - Number(sunrise[1]);
     if (Number(sunset[1]) > Number(sunrise[1])) {
