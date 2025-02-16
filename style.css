@@ -14,7 +14,7 @@
   /* --outline: #74796d; */
 
   --primary-container: hsl(0, 0%, 90%);
-  --on-primary-container: hsl(120, 100%, 7%);
+  --on-primary-container: #1a1a1a;
   --on-surface: hsl(0, 0%, 10%);
   --surface-container-high: hsl(0, 0%, 90%);
   --outline: hsl(0, 0%, 90%);
@@ -34,6 +34,7 @@ html {
 img {
   display: block;
   width: 20%;
+  background-color: var(--on-primary-container);
 }
 
 body {
