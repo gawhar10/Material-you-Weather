@@ -6,12 +6,18 @@
   --container-padding: 2rem;
 
   /* Material you colors */
-  --primary-container: #e7edde;
-  --on-primary-container: #002400;
-  --surface: #f8faf0;
-  --on-surface: #1a1c18;
-  --surface-container-high: #e7e9de;
-  --outline: #74796d;
+  /* --primary-container: #e7edde; */
+  /* --on-primary-container: #002400; */
+  /* --surface: #f8faf0; */
+  /* --on-surface: #1a1c18; */
+  /* --surface-container-high: #e7e9de; */
+  /* --outline: #74796d; */
+
+  --primary-container: hsl(0, 0%, 90%);
+  --on-primary-container: hsl(120, 100%, 7%);
+  --on-surface: hsl(0, 0%, 10%);
+  --surface-container-high: hsl(0, 0%, 90%);
+  --outline: hsl(0, 0%, 90%);
 }
 
 html {
@@ -40,7 +46,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   border-radius: 1rem;
-  background-color: var(--surface);
+  /* background-color: var(--surface); */
 }
 
 .first_section {
