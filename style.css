@@ -34,7 +34,6 @@ html {
 img {
   display: block;
   width: 20%;
-  background-color: var(--on-primary-container);
 }
 
 body {
